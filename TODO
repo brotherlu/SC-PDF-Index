@@ -1,0 +1,16 @@
+
+*	Database Design;
+
+	Universal table storing PDF info, page sizes, ALL INFO
+	Table for each file,
+	Storing xmin,xmax,ymin,ymax,word,page number
+
+*	PDF Search and Index;
+
+	POPPLER pdftotext shell execution;
+	
+*	PDF Cleaning;
+
+	Remove all conjugations (I,we,us,and,or,if,etc...)
+
+*	Sanitize Inputs
