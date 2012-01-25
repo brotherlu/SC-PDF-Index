@@ -31,9 +31,17 @@ function reindex(){
 	
 	for($i=2;$i<count($fileList);$i++){
 		
-		$content = shell_exec('pdftotext '.PDF_SOURCE.$fileList[$i].' -');
-		echo $content;
+		$content = shell_exec('pdftotext -bbox '.PDF_SOURCE.$fileList[$i].' /tmp/pdftotext.tmp');
 		
+		// capture XML data from PDF
+		$content = shell_exec('cat /tmp/pdftotext.tmp');
+		
+		$xml = simplexml_load_string($content);
+		
+		
+		echo "<pre>";
+		print_r($xml);
+		echo "</pre>";
 		}
 	
 /*
