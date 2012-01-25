@@ -31,8 +31,8 @@ function reindex(){
 	
 	for($i=2;$i<count($fileList);$i++){
 		
-		$content = system("pdftotext $fileList[$i] -",$retval);
-		echo "<pre>".$retval."</pre>";
+		$content = shell_exec('pdftotext '.PDF_SOURCE.$fileList[$i].' -');
+		echo $content;
 		
 		}
 	
