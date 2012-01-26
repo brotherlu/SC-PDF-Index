@@ -42,23 +42,25 @@ function reindex(){
 			$content = shell_exec('cat /tmp/pdftotext.tmp');
 			
 			$xml = simplexml_load_string($content);
+		
+			$TotalPageCount=count($xml->body->doc->page);
 			
 			for($i=0;$i<count($xml->body->doc->page);$i++){
 				
-				echo $xml->body->doc->page[0]->word[2]->attributes()->xMin;
+				echo $xml->body->doc->page[5]->word[0]->attributes()->xMin;
 			
 			}
 		/* } */  
 		} else {echo "There are no files to be indexed in this folder! Please Try Again!";}
-/*
 
+/*
 	$index=new Index();
 	
 	$index->ClearAllTables();
 	
-	$index->GenerateNewIndex();
+	$index->GenerateInitialDatabaseTables();
 	
-	*/
+*/
 
 };
 

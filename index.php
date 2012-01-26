@@ -27,6 +27,7 @@ include_once("CFG.ini");
 <link REL="stylesheet" type="text/css" href="libs/style.css" />
 </head>
 <body>
+	<center><img src="<?php echo BASE_URI."libs/img/SClogo.png" ?>" /></center>
 	<center><h1>SC Search v0.1</h1></center>
 	<form name="scsearch" method="GET" action="controllers/search.php">
 	<center><input type="text" name="search[term]">

@@ -22,25 +22,72 @@ include_once(BASE_DIR."models/Universe.model.php");
 
 class Index extends Universe{
 	
-	function GenerateNewDocListTable(){
+	// Generate the Initial Tables
+	
+	function GenerateInitialDatabaseTables(){
 		
+		$connectDB=parent::connectDB();
+		
+		$createDocListQuery=$connectDB->query("CREATE TABLE DOC_LIST (doc_id int(11) AUTO_INCREMENT, doc_filename varchar(256), doc_title varchar(256), doc_authour varchar(256), doc_total_pages int(11), PRIMARY KEY (doc_id))");
+		
+		$createPageListQuery=$connectDB->query("CREATE TABLE PAGE_LIST (page_id int(11) AUTO_INCREMENT, doc_id int(11), page_no int(11), page_width int(11), page_height int(11), PRIMARY KEY (page_id), FOREIGN KEY (doc_id) REFERENCES DOC_LIST(doc_id))");
+		
+		if($createDocListQuery&&$createPageListQuery){
+			
+			return 1;
+			
+			} else { return 0; }
+		}
+	
+	// Add document to DOC_LIST
+	
+	function AddDocList($filename,$title,$authour,$pageTotal){
+		
+		$connectDB=parent::connectDB();
+		
+		$addDocListQuery=$connectDB->query("INSERT INTO DOC_LIST SET	doc_filename=$filename,
+																		doc_title=$title,
+																		doc_authour=$authour,
+																		doc_total_pages=$pageTotal ");
+		
+		if ($addDocListQuery){
+			
+			--------------------------------------------------
+			}
 		
 		
 		}
+	
+	// Create the Word Tabel for the page
+	function CreateWordTable($page_id){
+		
+		$connectDB=parent::connectDB();
+		
+		$createWordTableQuery=$connectDB->query("CREATE TABLE $page_id (word_id int(11) AUTO_INCREMENT, word varchar(256), xMin int(11), xMax int(11), yMin int(11), yMax int(11), PRIMARY KEY (word_id)) ");
+		
+		}
+	
+	// Remove All Tables
 	
 	function ClearAllTables(){
 	
 		$connectDB=parent::connectDB();
 		
-		$query=$connectDB->query("SHOW TABLES");
+		$clearAllTablesQuery=$connectDB->query("SHOW TABLES");
 		
-		if ($query){
+		if ($clearAllTablesQuery){
 			
-			while($row=$query->fetch_array()){
+			while($row=$clearAllTablesQuery->fetch_array()){
 				
 				print_r($row);
+				$dropTableQuery=$connectDB->query("DROP TABLE $row[0]");
 				
 				}	
 			}
+		
+		if($dropTableQuery){
+			return 1;
+			} else {return 0;}
+		
 		}
 	};

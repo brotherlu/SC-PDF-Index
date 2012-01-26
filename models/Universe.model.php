@@ -34,4 +34,12 @@ class Universe{
 		
 		return $connectDB;
 		}
+	
+	/* Sanitize Strings */
+	protected function sanitizeString($string){
+		
+		return filter_var($string,FILTER_SANITIZE_STRING);
+		
+	}
+	
 	};
