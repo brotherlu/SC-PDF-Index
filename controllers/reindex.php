@@ -29,21 +29,27 @@ function reindex(){
 			}
 		}
 	
-	for($i=2;$i<count($fileList);$i++){
-		
-		$content = shell_exec('pdftotext -bbox '.PDF_SOURCE.$fileList[$i].' /tmp/pdftotext.tmp');
-		
-		// capture XML data from PDF
-		$content = shell_exec('cat /tmp/pdftotext.tmp');
-		
-		$xml = simplexml_load_string($content);
-		
-		
-		echo "<pre>";
-		print_r($xml);
-		echo "</pre>";
-		}
 	
+		// Check if there are files to be indexed
+		
+		if($fileList && $fileList[2]){
+	
+/*	for($i=2;$i<count($fileList);$i++){ */
+		
+			$content = shell_exec('pdftotext -bbox '.PDF_SOURCE.$fileList[2].' /tmp/pdftotext.tmp');
+			
+			// capture XML data from PDF
+			$content = shell_exec('cat /tmp/pdftotext.tmp');
+			
+			$xml = simplexml_load_string($content);
+			
+			for($i=0;$i<count($xml->body->doc->page);$i++){
+				
+				echo $xml->body->doc->page[0]->word[2]->attributes()->xMin;
+			
+			}
+		/* } */  
+		} else {echo "There are no files to be indexed in this folder! Please Try Again!";}
 /*
 
 	$index=new Index();

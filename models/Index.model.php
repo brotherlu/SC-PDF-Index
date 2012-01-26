@@ -22,7 +22,7 @@ include_once(BASE_DIR."models/Universe.model.php");
 
 class Index extends Universe{
 	
-	function GenerateNewIndex(){
+	function GenerateNewDocListTable(){
 		
 		
 		
