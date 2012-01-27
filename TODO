@@ -7,4 +7,8 @@
 
 *	Search Functionality
 
-
+*	Index Configuration
+	
+	Words Not to index other than standards not indexed
+	Also make it and active function that executes on reindex/ its own button
+	
