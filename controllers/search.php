@@ -24,16 +24,36 @@ include_once(BASE_DIR."models/Search.model.php");
 
 if(!$_GET['search']['term']==""){
 
-	if($_GET['search']['reindex']=='on'){
+	if(isset($_GET['search']['reindex'])){
+
+		if($_GET['search']['reindex']=='on'){
 		
-		include_once(BASE_DIR."models/Index.model.php");
+			include_once(BASE_DIR."models/Index.model.php");
 		
-		include_once(BASE_DIR."controllers/reindex.php");
+			include_once(BASE_DIR."controllers/reindex.php");
 		
 		}
 
+	}	
+
 	$finder=new Search();
 	
-	//print_r($finder->Find());
-
+	$FindResult = $finder->Find($_GET['search']['term']);
+	
+	echo "<pre>";
+	
+	foreach (array_keys($FindResult) as $a){
+		
+		echo "<h1>For this Doc</h1>";
+		
+		print_r($finder->GetDocInfo($a));
+		
+		echo "<h1>The result is</h1>";
+		
+		print_r($FindResult[$a]);
+		
+		}
+		
+	echo "</pre>";
+	
 } else {echo "Please Input a Search String!";}

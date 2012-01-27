@@ -22,18 +22,51 @@ include_once(BASE_DIR."models/Universe.model.php");
 
 class Search extends Universe{
 	
-	public function Find(){
+	public function Find($wordToBeFound){
 		
 		$connectDB=parent::connectDB();
 		
-		$query=$connectDB->query("SELECT * FROM doc_list");
+		$docIdQuery=$connectDB->query("SELECT doc_id FROM DOC_LIST");
 		
-		if ($query){
-			while($row = $query->fetch_array()){
-				$result[]=$row;
+		if ($docIdQuery){
+			while($docRow = $docIdQuery->fetch_array()){
+				$docIdResult[]=$docRow;
 				}
 			}
-		return $result;
+		
+		for($i=0;$i<count($docIdResult);$i++){
+			
+			
+			$tableName = 'DOC_'.$docIdResult[$i][0];
+			
+			$wordSearchQuery = $connectDB->query("SELECT * FROM $tableName WHERE word LIKE '$wordToBeFound'");
+			
+			if ($wordSearchQuery){
+				
+				while($wordRow = $wordSearchQuery->fetch_array()){
+					$wordResult[]=$wordRow;
+					}
+				}
+			
+			if(isset($wordResult)){
+				$finalResult[$docIdResult[$i][0]] = $wordResult;
+				}
+			
+			}
+		
+		return $finalResult;
+		
+		}
+	
+	function GetDocInfo($doc_id){
+		
+		$connectDB = parent::connectDB();
+		
+		$infoQuery = $connectDB->query("SELECT * FROM DOC_LIST WHERE doc_id='$doc_id'");
+		
+		$docResult = $infoQuery->fetch_array();
+		
+		return $docResult;
 		
 		}
 	
