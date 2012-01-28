@@ -24,18 +24,15 @@ class Search extends Universe{
 	
 	public function Find($wordToBeFound){
 		
-		$connectDB=parent::connectDB();
+		$connectDB = parent::connectDB();
 		
-		$docIdQuery=$connectDB->query("SELECT doc_id FROM DOC_LIST");
+		$docIdResult = $this->GetDocList();
+
+		// Feature to be worked on 'Smart' String Analysis 
 		
-		if ($docIdQuery){
-			while($docRow = $docIdQuery->fetch_array()){
-				$docIdResult[]=$docRow;
-				}
-			}
-		
+		$words = $this->ProcessSearchString($wordToBeFound);
+
 		for($i=0;$i<count($docIdResult);$i++){
-			
 			
 			$tableName = 'DOC_'.$docIdResult[$i][0];
 			
@@ -58,7 +55,7 @@ class Search extends Universe{
 		
 		}
 	
-	function GetDocInfo($doc_id){
+	public function GetDocInfo($doc_id){
 		
 		$connectDB = parent::connectDB();
 		
@@ -70,4 +67,31 @@ class Search extends Universe{
 		
 		}
 	
+	protected function GetDocList(){
+		
+		$connectDB=parent::connectDB();
+		
+		$docIdQuery=$connectDB->query("SELECT doc_id FROM DOC_LIST");
+		
+		if ($docIdQuery){
+			while($docRow = $docIdQuery->fetch_array()){
+				$docIdResult[]=$docRow;
+				}
+			}
+		
+		return $docIdResult;
+		
+		}
+
+
+	/* Regular expression split of the search String */
+	protected function ProcessSearchString($String){
+		
+		$String = preg_split('/[\/,-\s\t]+/',$String);
+		
+		print_r($String);
+
+		return $String;
+		}
+
 	};
