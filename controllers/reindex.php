@@ -18,15 +18,7 @@
  * 
  */
 
-// Function to make sure we dont count any blank pages
-	
-function GetNumberOfPages($xml){
-	$i = 0;
-	while ($xml->body->doc->page[$i]->word[0] != ""){
-		$i++;
-		}
-	return $i;
-	}
+ini_set('max_execution_time',300); // Time in seconds
 
 function CleanWordOfNonLettres($word){
 	
@@ -69,19 +61,19 @@ function reindex(){
 		// Capture XML data from PDF using poppler and cat, stdout did not work
 		// outputs to a /tmp/ file
 		
+		$fileList[$i] = preg_replace('/[\s]/','\ ',$fileList[$i]);
+		
 		$content = shell_exec('pdftotext -bbox '.PDF_SOURCE.$fileList[$i].' /tmp/pdftotext.tmp');
 			
 		$content = shell_exec('cat /tmp/pdftotext.tmp');
 			
 		$xml = simplexml_load_string($content);
 	
-		$docTitle = $xml->head->title;
-		$docAuthour = $xml->head->meta[0]->attributes()->content;
-		$totalPageCount = GetNumberOfPages($xml);
+		$totalPageCount = count($xml->body->doc->page);
 			
 		// Start Generating new Data
 			
-		$docId=$index->AddDocList($fileList[$i],$docTitle,$docAuthour,$totalPageCount);
+		$docId=$index->AddDocList($fileList[$i],$totalPageCount);
 		
 		if(isset($docId)){
 		

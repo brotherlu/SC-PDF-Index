@@ -28,7 +28,7 @@ class Index extends Universe{
 		
 		$connectDB=parent::connectDB();
 		
-		$createDocListQuery=$connectDB->query("CREATE TABLE DOC_LIST (doc_id int(11) AUTO_INCREMENT, doc_filename varchar(256), doc_title varchar(256), doc_authour varchar(256), doc_total_pages int(11), PRIMARY KEY (doc_id))");
+		$createDocListQuery=$connectDB->query("CREATE TABLE DOC_LIST (doc_id int(11) AUTO_INCREMENT, doc_filename varchar(256), doc_total_pages int(11), PRIMARY KEY (doc_id))");
 		
 		$createPageListQuery=$connectDB->query("CREATE TABLE PAGE_LIST (page_id int(11) AUTO_INCREMENT, doc_id int(11), page_no int(11), page_width int(11), page_height int(11), PRIMARY KEY (page_id), FOREIGN KEY (doc_id) REFERENCES DOC_LIST(doc_id))");
 		
@@ -41,18 +41,16 @@ class Index extends Universe{
 	
 	// Add document to DOC_LIST
 	
-	function AddDocList($filename,$title,$authour,$pageTotal){
+	function AddDocList($filename,$pageTotal){
 		
 		$connectDB=parent::connectDB();
 		
 		$addDocListQuery=$connectDB->query("INSERT INTO DOC_LIST SET	doc_filename='$filename',
-																		doc_title='$title',
-																		doc_authour='$authour',
 																		doc_total_pages='$pageTotal' ");
 		
 		if ($addDocListQuery){
 			
-			$findDocListId=$connectDB->query("SELECT doc_id FROM DOC_LIST WHERE doc_filename='$filename' AND doc_title='$title' ");
+			$findDocListId=$connectDB->query("SELECT doc_id FROM DOC_LIST WHERE doc_filename='$filename' AND doc_total_pages='$pageTotal' ");
 			
 			$doc_id=$findDocListId->fetch_array();
 			

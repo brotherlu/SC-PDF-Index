@@ -25,7 +25,7 @@ $CONJUGATION_LIST = array('for','and','nor','but','or','yet','so','after','altho
 
 /* Universe Core Class for Database connections */
 
-class Universe{
+abstract class Universe{
 	
 	protected function connectDB(){
 		

@@ -22,6 +22,8 @@ include_once(BASE_DIR."models/Universe.model.php");
 
 class Search extends Universe{
 	
+	
+	// Primary Search Function
 	public function Find($wordToBeFound){
 		
 		$connectDB = parent::connectDB();
@@ -36,14 +38,7 @@ class Search extends Universe{
 			
 			$tableName = 'DOC_'.$docIdResult[$i][0];
 			
-			$wordSearchQuery = $connectDB->query("SELECT * FROM $tableName WHERE word LIKE '$wordToBeFound'");
-			
-			if ($wordSearchQuery){
-				
-				while($wordRow = $wordSearchQuery->fetch_array()){
-					$wordResult[]=$wordRow;
-					}
-				}
+			$wordResult = $this->LocateWordInTable($tableName,$wordToBeFound);
 			
 			if(isset($wordResult)){
 				$finalResult[$docIdResult[$i][0]] = $wordResult;
@@ -84,7 +79,7 @@ class Search extends Universe{
 		}
 
 
-	/* Regular expression split of the search String */
+	/* Regular expression split of the search String more analysis later maybe */
 	protected function ProcessSearchString($String){
 		
 		$String = preg_split('/[\/,-\s\t]+/',$String);
@@ -94,4 +89,38 @@ class Search extends Universe{
 		return $String;
 		}
 
+	// Find all instances of a word in the table 
+	private function LocateWordInTable($tableName,$wordToBeFound){
+		
+		$connectDB = parent::connectDB();
+		
+		$wordSearchQuery = $connectDB->query("SELECT * FROM $tableName WHERE word LIKE '$wordToBeFound'");
+
+		if ($wordSearchQuery){
+				
+			while($wordRow = $wordSearchQuery->fetch_array()){
+				$wordResult[] = $wordRow;
+				}
+			}
+				
+		return $wordResult;
+		}
+	
+	// Get word row using the word_id
+	private function GetWordFromId($tableName,$wordId){
+		
+		$connectDB = parent::connectDB();
+		
+		$wordSearchQuery = $connectDB->query("SELECT * FROM $tableName WHERE word_id ='$wordId'");
+		
+		if ($wordSearchQuery){
+			$word = $wordSearchQuery->fetch_array();
+			}
+		
+		if(isset($word)){
+			return $word;
+			} else { return 0; }
+		
+		}
+	
 	};
