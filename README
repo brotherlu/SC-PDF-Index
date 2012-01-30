@@ -1,4 +1,9 @@
-DEFAULT
+
+					SCPFDINDEX
+
+A PHP program to index and search large collections of PDF documents
+
+
 AUTHOUR:LOUAY CHEIKH
 
-PRE REQ: POPPLER
+PRE REQ: POPPLER, CAT
