@@ -23,6 +23,7 @@ include_once("CFG.ini");
 <html>
 <head>
 <title>SpaceConcordia Docs Search</title>
+<script type="text/javascript" src="libs/jquery.js"></script> <!-- JQuery v 1.7.1-->
 <script type="text/javascript" src="libs/script.js"></script>
 <link REL="stylesheet" type="text/css" href="libs/style.css" />
 </head>

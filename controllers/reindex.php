@@ -18,7 +18,9 @@
  * 
  */
 
-ini_set('max_execution_time',300); // Time in seconds
+// Time in seconds for indexing documents
+// Change this if the database does not seem complete
+ini_set('max_execution_time',300);
 
 /* Remove uneeded characters */
 function CleanWordOfNonLettres($word){

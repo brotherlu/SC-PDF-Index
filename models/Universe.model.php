@@ -30,7 +30,7 @@ abstract class Universe{
 		,'after','although','as','if','much','soon','though','because','before'
 		,'time','even','lest','once','only','since','that','than','till','unless'
 		,'until','when','whenever','while','where','wherever','both','either'
-		,'neither','whether');
+		,'neither','whether','it');
 		
 	protected function connectDB(){
 		

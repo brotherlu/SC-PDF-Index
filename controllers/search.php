@@ -50,11 +50,14 @@ if(!$_GET['search']['term']==""){
 	// get the word data and save the word ids
 	// check if any results from the second search results are next to the the first search results
 	
-	//echo "<pre>";
+	echo "<pre>";
 	
 	foreach ($searchStringArray as $a){
 	
 		$blackListedResult = $finder->CheckBlacklist($a);
+	
+		if ($blackListedResult)
+			echo $a." is blacklisted<br/>";
 	
 		if (!$blackListedResult){
 
@@ -76,6 +79,6 @@ if(!$_GET['search']['term']==""){
 			}
 		}
 	}	
-	//echo "</pre>";
+	echo "</pre>";
 	
 } else {echo "Please Input a Search String!";}

@@ -120,9 +120,10 @@ class Search extends Universe{
 			while($wordRow = $wordSearchQuery->fetch_array()){
 				$wordResult[] = $wordRow;
 				}
-			}
-				
-		return $wordResult;
+			
+			if (isset($wordResult))
+				return $wordResult;
+			} else { return 0; }
 		}
 	
 	// Get word row using the word_id
