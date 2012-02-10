@@ -20,6 +20,7 @@
 
 ini_set('max_execution_time',300); // Time in seconds
 
+/* Remove uneeded characters */
 function CleanWordOfNonLettres($word){
 	
 	$charactersToDrop = array('(',')','/','\\',':',',','.','0','1','2','3','4','5','6','7','8','9');
@@ -98,11 +99,12 @@ function reindex(){
 					
 					$word = $xml->body->doc->page[$j]->word[$k];
 					
+					/* preg match pattern */
 					$pattern = '([a-zA-Z]+)';
 					
 					if(preg_match($pattern,$word)){
 					
-						$word = CleanWordOfNonLettres($word);
+						$word = strtolower(CleanWordOfNonLettres($word));
 					
 						$xMin = $xml->body->doc->page[$j]->word[$k]->attributes()->xMin;
 						$xMax = $xml->body->doc->page[$j]->word[$k]->attributes()->xMax;

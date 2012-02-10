@@ -30,10 +30,6 @@ class Search extends Universe{
 		
 		$docIdResult = $this->GetDocList();
 
-		// Feature to be worked on 'Smart' String Analysis 
-		
-		$words = $this->ProcessSearchString($wordToBeFound);
-
 		for($i=0;$i<count($docIdResult);$i++){
 			
 			$tableName = 'DOC_'.$docIdResult[$i][0];
@@ -50,6 +46,7 @@ class Search extends Universe{
 		
 		}
 	
+	/* Get the Doc information for use in the search query */
 	public function GetDocInfo($doc_id){
 		
 		$connectDB = parent::connectDB();
@@ -62,6 +59,7 @@ class Search extends Universe{
 		
 		}
 	
+	/* Return the Doc list for search */
 	protected function GetDocList(){
 		
 		$connectDB=parent::connectDB();
@@ -79,13 +77,19 @@ class Search extends Universe{
 		}
 
 
-	/* Regular expression split of the search String more analysis later maybe */
-	protected function ProcessSearchString($String){
+	/* Regular expression split of the search String more analysis */
+	public function ProcessSearchString($String){
+		
+		$String = trim($String);
 		
 		$String = preg_split('/[\/,-\s\t]+/',$String);
-		
-		print_r($String);
 
+		foreach ($String as $a){
+			
+			$a = parent::sanitizeString(strtolower(trim($a)));
+			
+			}
+			
 		return $String;
 		}
 

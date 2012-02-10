@@ -38,22 +38,39 @@ if(!$_GET['search']['term']==""){
 
 	$finder=new Search();
 	
-	$FindResult = $finder->Find($_GET['search']['term']);
+	echo '<h1>For the search Query: '.$_GET[search][term].'</h1>';
+	
+	$searchStringArray = $finder->ProcessSearchString($_GET[search][term]);
+	
+	// start loop
+	// sanitze each elemnt of array
+	// find the first result
+	// get the word data and save the word ids
+	// find the second result
+	// get the word data and save the word ids
+	// check if any results from the second search results are next to the the first search results
 	
 	echo "<pre>";
 	
-	foreach (array_keys($FindResult) as $a){
-		
-		echo "<h1>For this Doc</h1>";
-		
-		print_r($finder->GetDocInfo($a));
-		
-		echo "<h1>The result is</h1>";
-		
-		print_r($FindResult[$a]);
-		
+	foreach ($searchStringArray as $a){
+	
+		$FindResult = $finder->Find($a);
+	
+		echo '<h3>Word: '.$a.'</h3>';
+	
+		foreach (array_keys($FindResult) as $b){
+			
+			$doc = $finder->GetDocInfo($b);
+			
+			echo "<h3>For this Doc $doc[doc_filename]</h3>";
+			
+			echo "<h3>The results are</h3>";
+			
+			foreach ($FindResult[$b] as $c){
+				echo 'Page: '.$c[page_no].'<br/>';
+			}
 		}
-		
+	}	
 	echo "</pre>";
 	
 } else {echo "Please Input a Search String!";}
