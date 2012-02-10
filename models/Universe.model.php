@@ -18,15 +18,20 @@
  * 
  */
 
-/* Primary Ban List of words to be removed from the index */
-
-$PRI_BAN_LIST = array('I','a','be','is','are','could','would','should','the','can');
-$CONJUGATION_LIST = array('for','and','nor','but','or','yet','so','after','although','as','if','much','soon','though','because','before','time','even','lest','once','only','since','that','than','till','unless','until','when','whenever','while','where','wherever','both','either','neither','whether');
 
 /* Universe Core Class for Database connections */
 
 abstract class Universe{
-	
+
+	/* Primary Ban List of words to be removed from the index */
+
+	protected static $PRI_BAN_LIST = array('I','a','be','is','are','could'
+		,'would','should','the','can','for','and','nor','but','or','yet','so'
+		,'after','although','as','if','much','soon','though','because','before'
+		,'time','even','lest','once','only','since','that','than','till','unless'
+		,'until','when','whenever','while','where','wherever','both','either'
+		,'neither','whether');
+		
 	protected function connectDB(){
 		
 		$connectDB=new mysqli(DB_HOST,DB_USER,DB_PASSWORD,DB_NAME);

@@ -38,9 +38,9 @@ if(!$_GET['search']['term']==""){
 
 	$finder=new Search();
 	
-	echo '<h1>For the search Query: '.$_GET[search][term].'</h1>';
+	echo '<h1>For the search Query: '.$_GET['search']['term'].'</h1>';
 	
-	$searchStringArray = $finder->ProcessSearchString($_GET[search][term]);
+	$searchStringArray = $finder->ProcessSearchString($_GET['search']['term']);
 	
 	// start loop
 	// sanitze each elemnt of array
@@ -50,27 +50,32 @@ if(!$_GET['search']['term']==""){
 	// get the word data and save the word ids
 	// check if any results from the second search results are next to the the first search results
 	
-	echo "<pre>";
+	//echo "<pre>";
 	
 	foreach ($searchStringArray as $a){
 	
-		$FindResult = $finder->Find($a);
+		$blackListedResult = $finder->CheckBlacklist($a);
 	
-		echo '<h3>Word: '.$a.'</h3>';
-	
-		foreach (array_keys($FindResult) as $b){
-			
-			$doc = $finder->GetDocInfo($b);
-			
-			echo "<h3>For this Doc $doc[doc_filename]</h3>";
-			
-			echo "<h3>The results are</h3>";
-			
-			foreach ($FindResult[$b] as $c){
-				echo 'Page: '.$c[page_no].'<br/>';
+		if (!$blackListedResult){
+
+			$FindResult = $finder->Find($a);
+		
+			echo '<h3>Word: '.$a.'</h3>';
+		
+			foreach (array_keys($FindResult) as $b){
+				
+				$doc = $finder->GetDocInfo($b);
+				
+				echo "<h3>For this Doc $doc[doc_filename]</h3>";
+				
+				echo "<h3>The results are</h3>";
+				
+				foreach ($FindResult[$b] as $c){
+					echo 'Page: '.$c['page_no'].'<br/>';
+				}
 			}
 		}
 	}	
-	echo "</pre>";
+	//echo "</pre>";
 	
 } else {echo "Please Input a Search String!";}

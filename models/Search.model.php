@@ -59,6 +59,21 @@ class Search extends Universe{
 		
 		}
 	
+	/* Find if the word is in the blacklist */
+	public function CheckBlacklist($word){
+		
+		$NewBanList = array_merge(parent::$PRI_BAN_LIST,$GLOBALS['EXTRA_BAN_LIST']);
+		$word = strtolower($word);
+		foreach ($NewBanList as $a){
+			$a = strtolower($a);
+			if ($word == $a){
+				$val = true;
+				break;
+				} else { $val = false; }
+			}
+		return $val;
+		}
+	
 	/* Return the Doc list for search */
 	protected function GetDocList(){
 		
