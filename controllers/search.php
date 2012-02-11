@@ -21,6 +21,7 @@
 include_once("../CFG.ini");
 
 include_once(BASE_DIR."models/Search.model.php");
+include_once(BASE_DIR."controllers/Search.controller.php");
 
 if(!$_GET['search']['term']==""){
 
@@ -61,22 +62,26 @@ if(!$_GET['search']['term']==""){
 	
 		if (!$blackListedResult){
 
-			$FindResult = $finder->Find($a);
-		
 			echo '<h3>Word: '.$a.'</h3>';
-		
-			foreach (array_keys($FindResult) as $b){
+			
+			$FindResult = $finder->Find($a);
+			
+			if ($FindResult){
 				
-				$doc = $finder->GetDocInfo($b);
-				
-				echo "<h3>For this Doc $doc[doc_filename]</h3>";
-				
-				echo "<h3>The results are</h3>";
-				
-				foreach ($FindResult[$b] as $c){
-					echo 'Page: '.$c['page_no'].'<br/>';
+				foreach (array_keys($FindResult) as $b){
+					
+					$doc = $finder->GetDocInfo($b);
+					
+					echo "<h3>For this Doc $doc[doc_filename]</h3>";
+					
+					echo "<h3>The results are</h3>";
+					
+					foreach ($FindResult[$b] as $c){
+						echo 'Page: '.$c['page_no'].'<br/>';
+					}
 				}
-			}
+		} else { echo "<p>Not Found</p>"; }
+		
 		}
 	}	
 	echo "</pre>";

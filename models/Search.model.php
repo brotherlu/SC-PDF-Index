@@ -41,9 +41,11 @@ class Search extends Universe{
 				}
 			
 			}
+			
+		if (!isset($finalResult))
+			$finalResult = (bool) 0;
 		
 		return $finalResult;
-		
 		}
 	
 	/* Get the Doc information for use in the search query */
