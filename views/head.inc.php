@@ -1,4 +1,4 @@
-<?php
+<!--
 /*
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,26 +16,18 @@
  * MA 02110-1301, USA.
  * 
  */
- 
-include_once("CFG.ini");
-include_once(BASE_DIR."controllers/Index.controller.php");
-?>
 
-<html>
+-->
+
 <head>
-<title>SpaceConcordia Docs Search</title>
+<title>SpaceConcordia Docs Search: <?php SearchController::SearchQuery(); ?></title>
 <script type="text/javascript" src="<?php echo BASE_URI;?>libs/jquery.js"></script> <!-- JQuery v 1.7.1-->
 <script type="text/javascript" src="<?php echo BASE_URI;?>libs/script.js"></script>
 <link REL="stylesheet" type="text/css" href="<?php echo BASE_URI;?>libs/style.css" />
 </head>
 <body>
-	<?php //IndexController::RenderReindexDiv(); ?>
-	<center><img src="<?php echo BASE_URI."libs/img/SClogo.png" ?>" /></center>
-	<center><h1>SC Search v0.1</h1></center>
-	<form name="scsearch" method="GET" action="controllers/search.php">
-	<center><input type="text" name="search[term]">
-	<input type="submit" value="Search"></center>
-	<center><input type="checkbox" name="search[reindex]">Reindex</center>
-	</form>
-</body>
-</html>
+<div id="wrapper">
+
+<div id="header">
+
+</div>

@@ -17,19 +17,8 @@
  * 
  */
 
-include_once(BASE_DIR."models/Search.model.php");
-include_once(BASE_DIR."controllers/Universe.controller.php");
-
-class SearchController extends UniverseController {
+abstract class UniverseController {
 	
-	public function SearchQuery(){
-		
-		if(!isset($_GET['search']['term'])){
-			echo "None";
-		} else {
-			echo $_GET['search']['term'];
-			}
-
-	}
+	/* Global controllers non yet ?*/
 	
 	}

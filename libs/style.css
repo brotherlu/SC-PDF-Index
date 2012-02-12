@@ -17,13 +17,28 @@
  */
 
 html {
-	font-family:Helevetica,Arial,Verdana,sans-serif;
+	font-family:Helevetica,Arial,Verdana,sans;
 }
 
 body{
 	background-color:#ccc;
 }
 
-h1 {
-	
+#wrapper {
+	width: 960px;
+	margin:0 auto;
+}
+
+#ReindexBlock {
+	float:right;
+
+}
+
+.wordTitle {
+	display:block;
+	background-color:#aaa;
+	padding:5px;
+	font-size:24px;
+	text-decoration:underline;
+
 }

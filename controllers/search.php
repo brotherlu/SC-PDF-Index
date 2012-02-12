@@ -23,6 +23,8 @@ include_once("../CFG.ini");
 include_once(BASE_DIR."models/Search.model.php");
 include_once(BASE_DIR."controllers/Search.controller.php");
 
+include_once(BASE_DIR."views/head.inc.php");
+
 if(!$_GET['search']['term']==""){
 
 	if(isset($_GET['search']['reindex'])){
@@ -43,15 +45,8 @@ if(!$_GET['search']['term']==""){
 	
 	$searchStringArray = $finder->ProcessSearchString($_GET['search']['term']);
 	
-	// start loop
-	// sanitze each elemnt of array
-	// find the first result
-	// get the word data and save the word ids
-	// find the second result
 	// get the word data and save the word ids
 	// check if any results from the second search results are next to the the first search results
-	
-	echo "<pre>";
 	
 	foreach ($searchStringArray as $a){
 	
@@ -62,7 +57,7 @@ if(!$_GET['search']['term']==""){
 	
 		if (!$blackListedResult){
 
-			echo '<h3>Word: '.$a.'</h3>';
+			echo '<p class="wordTitle">Word: '.$a.'</p>';
 			
 			$FindResult = $finder->Find($a);
 			
@@ -84,6 +79,7 @@ if(!$_GET['search']['term']==""){
 		
 		}
 	}	
-	echo "</pre>";
 	
 } else {echo "Please Input a Search String!";}
+
+include_once(BASE_DIR."views/footer.inc.php");

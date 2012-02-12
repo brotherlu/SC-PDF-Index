@@ -17,19 +17,22 @@
  * 
  */
 
-include_once(BASE_DIR."models/Search.model.php");
+include_once(BASE_DIR."models/Index.model.php");
 include_once(BASE_DIR."controllers/Universe.controller.php");
 
-class SearchController extends UniverseController {
+class IndexController extends UniverseController {
 	
-	public function SearchQuery(){
+	public function RenderReindexDiv(){
+		?>
 		
-		if(!isset($_GET['search']['term'])){
-			echo "None";
-		} else {
-			echo $_GET['search']['term'];
-			}
-
-	}
+		<div id="ReindexBlock">
+		<button id="ReindexButton" onClick=reindex(True)>
+			Reindex
+		</button>
+		
+		</div>
+		
+		<?php
+		}
 	
 	}

@@ -24,7 +24,7 @@ class Index extends Universe{
 	
 	// Generate the Initial Tables
 	
-	function GenerateInitialDatabaseTables(){
+	public function GenerateInitialDatabaseTables(){
 		
 		$connectDB=parent::connectDB();
 		
@@ -34,14 +34,14 @@ class Index extends Universe{
 		
 		if($createDocListQuery&&$createPageListQuery){
 			
-			return 1;
+			return (bool) 1;
 			
-			} else { return 0; }
+			} else { return (bool) 0; }
 		}
 	
 	// Add document to DOC_LIST
 	
-	function AddDocList($filename,$pageTotal){
+	public function AddDocList($filename,$pageTotal){
 		
 		$connectDB=parent::connectDB();
 		
@@ -63,7 +63,7 @@ class Index extends Universe{
 		}
 	
 	// Create the Word Tabel for the page
-	function CreateWordTable($doc_id){
+	public function CreateWordTable($doc_id){
 		
 		$connectDB=parent::connectDB();
 		
@@ -77,7 +77,7 @@ class Index extends Universe{
 	
 	// Remove All Tables
 	
-	function ClearAllTables(){
+	public function ClearAllTables(){
 	
 		$connectDB=parent::connectDB();
 		
@@ -96,14 +96,14 @@ class Index extends Universe{
 			}
 		
 		if($dropTableQuery){
-			return 1;
-			} else {return 0;}
+			return (bool) 1;
+			} else {return (bool) 0;}
 		
 		}
 	
 	// Adds a page to the PAGE_LIST table
 	
-	function AddPageList($doc_id,$page_no,$page_width,$page_height){
+	public function AddPageList($doc_id,$page_no,$page_width,$page_height){
 		
 		$connectDB = parent::connectDB();
 		
@@ -116,7 +116,7 @@ class Index extends Universe{
 		
 		}
 	
-	function AddWord($doc_id,$word,$page_no,$xMin,$xMax,$yMin,$yMax){
+	public function AddWord($doc_id,$word,$page_no,$xMin,$xMax,$yMin,$yMax){
 		
 		$connectDB=parent::connectDB();
 		
