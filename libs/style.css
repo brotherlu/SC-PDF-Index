@@ -83,36 +83,56 @@ body{
 
 .wordDiv {
 	border: 1px #666 dotted;
+	padding:10px;
 	margin-bottom:10px;
+	background-color:#eee;
 }
 
 .wordTitle {
 	display:block;
-	background-color:#aaa;
+	background-color:black;
+	color:#ccc;
 	padding:5px;
-	font-size:24px;
+	margin:0 0 10px 0;
+	font-size:32px;
 	text-transform:uppercase;
 }
 
 .docDiv {
-	cursor:pointer;
+
 }
 
 .resultDiv {
 	display:none;
 	border:1px #aaa dotted;
 	padding:10px;
+	background-color:#ddd;
 }
 
 .docDivFilename {
+	margin:1px 0 0 0;
 	display:block;
 	background-color:#999;
 	padding:1px;
 	text-align:center;
+	cursor:pointer;
 }
 
 .docPFilename {
 
+}
+
+.hit {
+	margin:0;
+	padding:5px;
+}
+
+.hiteven {
+	background-color:#ddd;
+}
+
+.hitodd {
+	background-color:#ccc;
 }
 
 .bold {

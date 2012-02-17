@@ -64,9 +64,11 @@ if(!$_GET['search']['term']==""){
 					echo '<div class=docDiv>';
 					echo "<div class=docDivFilename onclick=showResults(this)><p class=docPFilename><span class=bold>[+]</span> $doc[doc_filename] (<span class=bold>$wordHits</span> Hits) <span class=bold>[+]</span></p></div>";
 					echo '<div class=resultDiv>';
-						
-					foreach ($FindResult[$b] as $c){
-						echo 'Page: '.$c['page_no'].'<br/>';
+					
+					for ($i=0;$i<count($FindResult[$b]);$i++){
+						echo '<p class="hit ';
+						echo ($i%2==0) ? 'hiteven' : 'hitodd';
+						echo '">Page: '.$FindResult[$b][$i]['page_no'].'</p>';
 					}
 					echo '</div>';
 					echo '</div>';
