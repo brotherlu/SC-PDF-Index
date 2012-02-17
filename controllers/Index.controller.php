@@ -17,8 +17,8 @@
  * 
  */
 
-include_once(BASE_DIR."models/Index.model.php");
 include_once(BASE_DIR."controllers/Universe.controller.php");
+include_once(BASE_DIR."models/Index.model.php");
 
 class IndexController extends UniverseController {
 	

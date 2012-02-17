@@ -30,7 +30,7 @@ body{
 }
 
 #ReindexBlock {
-	float:right;
+	
 
 }
 
@@ -41,4 +41,45 @@ body{
 	font-size:24px;
 	text-decoration:underline;
 
+}
+
+.searchbox {
+	background-color:#666;
+	padding-left:5px;
+	font-size:24px;
+	color:#ccc;
+}
+
+.searchbutton {
+	background-color:#222;
+	color:#ccc;
+	font-size:24px;
+
+}
+
+#header {
+	position:fixed;
+	top:0px;
+	left:0px;
+	background-color:#222;
+	color:#ccc;
+	padding:20px 0 0 0;
+	width:100%;
+}
+
+#main {
+
+	margin-top:10%;
+
+}
+
+#footer {
+	position:fixed;
+	bottom:0px;
+	left:0px;
+	background-color:#222;
+	color:#ccc;
+	height: 25px;
+	padding:10px 0 0 10%;
+	width:100%;
 }

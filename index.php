@@ -19,23 +19,9 @@
  
 include_once("CFG.ini");
 include_once(BASE_DIR."controllers/Index.controller.php");
+include_once(BASE_DIR."controllers/Search.controller.php");
+include_once(BASE_DIR."views/head.inc.php");
 ?>
-
-<html>
-<head>
-<title>SpaceConcordia Docs Search</title>
-<script type="text/javascript" src="<?php echo BASE_URI;?>libs/jquery.js"></script> <!-- JQuery v 1.7.1-->
-<script type="text/javascript" src="<?php echo BASE_URI;?>libs/script.js"></script>
-<link REL="stylesheet" type="text/css" href="<?php echo BASE_URI;?>libs/style.css" />
-</head>
-<body>
-	<?php //IndexController::RenderReindexDiv(); ?>
-	<center><img src="<?php echo BASE_URI."libs/img/SClogo.png" ?>" /></center>
-	<center><h1>SC Search v0.1</h1></center>
-	<form name="scsearch" method="GET" action="controllers/search.php">
-	<center><input type="text" name="search[term]">
-	<input type="submit" value="Search"></center>
-	<center><input type="checkbox" name="search[reindex]">Reindex</center>
-	</form>
-</body>
-</html>
+	<center><img src="<?php echo LOGO_LOCATION ?>" /></center>
+	<center><h1>Space Concordia PDF Search <?php echo REV;?></h1></center>
+<?php include_once(BASE_DIR."views/footer.inc.php");

@@ -19,8 +19,9 @@
  */
 
 -->
+</div> <!-- Main Div ending tag -->
 <div id="footer">
-
+&copy;<?php echo date('Y'); ?> PHPoppler <?php echo REV; ?> GPLv2
 </div>
 
 </div><!-- Wrapper End Tag -->

@@ -17,8 +17,8 @@
  * 
  */
 
-include_once(BASE_DIR."models/Search.model.php");
 include_once(BASE_DIR."controllers/Universe.controller.php");
+include_once(BASE_DIR."models/Search.model.php");
 
 class SearchController extends UniverseController {
 	
@@ -32,4 +32,12 @@ class SearchController extends UniverseController {
 
 	}
 	
+	public function RenderSearchForm(){
+		?>
+		<form name="scsearch" method="GET" action="<?php echo BASE_URI; ?>controllers/search.php">
+		<center><input class="searchbox" type="text" name="search[term]">
+		<input class="searchbutton" type="submit" value="Search"></center>
+		</form>
+	<?php
+	}
 	}

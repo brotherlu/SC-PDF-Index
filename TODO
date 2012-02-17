@@ -8,9 +8,6 @@
 	Words Not to index other than standards not indexed
 	Also make it and active function that executes on reindex/ its own button
 
-****	Maybe store sentence by sentence rather than word for word.	****
-**** nope then we loose word location data *****
-
 *	Functionality
 	
 	Link to get document

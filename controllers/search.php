@@ -27,19 +27,7 @@ include_once(BASE_DIR."views/head.inc.php");
 
 if(!$_GET['search']['term']==""){
 
-	if(isset($_GET['search']['reindex'])){
-
-		if($_GET['search']['reindex']=='on'){
-		
-			include_once(BASE_DIR."models/Index.model.php");
-		
-			include_once(BASE_DIR."controllers/reindex.php");
-		
-		}
-
-	}	
-
-	$finder=new Search();
+	$finder=new SearchModel();
 	
 	echo '<h1>For the search Query: '.$_GET['search']['term'].'</h1>';
 	
@@ -80,6 +68,6 @@ if(!$_GET['search']['term']==""){
 		}
 	}	
 	
-} else {echo "Please Input a Search String!";}
+} else {echo "<center><h1>Please Input a Search String!</h1></center>";}
 
 include_once(BASE_DIR."views/footer.inc.php");

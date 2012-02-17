@@ -29,5 +29,6 @@
 <div id="wrapper">
 
 <div id="header">
-
+<?php SearchController::RenderSearchForm(); ?>
 </div>
+<div id="main">

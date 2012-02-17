@@ -20,7 +20,7 @@
 
 include_once(BASE_DIR."models/Universe.model.php");
 
-class Search extends Universe{
+class SearchModel extends UniverseModel{
 	
 	
 	// Primary Search Function

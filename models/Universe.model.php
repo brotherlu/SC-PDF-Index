@@ -21,7 +21,7 @@
 
 /* Universe Core Class for Database connections */
 
-abstract class Universe{
+abstract class UniverseModel{
 
 	/* Primary Ban List of words to be removed from the index */
 

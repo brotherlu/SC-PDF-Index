@@ -20,6 +20,9 @@
 
 // Time in seconds for indexing documents
 // Change this if the database does not seem complete
+
+include_once(BASE_DIR."models/Index.model.php");
+
 ini_set('max_execution_time',300);
 
 /* Remove uneeded characters */
@@ -49,7 +52,7 @@ function reindex(){
 	
 	//	Create the Index Object
 
-	$index=new Index();
+	$index=new IndexModel();
 			
 	$index->ClearAllTables();
 			
@@ -119,7 +122,7 @@ function reindex(){
 			}
 		} else {die("DOC_LIST Table Creation failed!");}
 		} 
-	} else {echo "There are no files to be indexed in this folder! Please Try Again!";}
+	} else {die("There are no files to be indexed in this folder! Please Try Again!");}
 
 
 };

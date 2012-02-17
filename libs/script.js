@@ -16,3 +16,8 @@
  * 
  */
 
+function refillTextSearch(){
+	
+	
+	
+	}
