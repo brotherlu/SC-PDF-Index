@@ -22,7 +22,6 @@ include_once(BASE_DIR."models/Universe.model.php");
 
 class SearchModel extends UniverseModel{
 	
-	
 	// Primary Search Function
 	public function Find($wordToBeFound){
 		
@@ -125,7 +124,7 @@ class SearchModel extends UniverseModel{
 			
 			if (isset($wordResult))
 				return $wordResult;
-			} else { return 0; }
+			} else { return (bool) 0; }
 		}
 	
 	// Get word row using the word_id
@@ -141,7 +140,7 @@ class SearchModel extends UniverseModel{
 		
 		if(isset($word)){
 			return $word;
-			} else { return 0; }
+			} else { return (bool) 0; }
 		
 		}
 	

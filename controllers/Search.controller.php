@@ -40,4 +40,14 @@ class SearchController extends UniverseController {
 		</form>
 	<?php
 	}
+	
+	public function RenderHomeButton(){
+		?>
+		<div id="homebutton">
+		<a href="<?php echo BASE_URI; ?>"> 
+		<img src="<?php echo LOGO_LOCATION_HEADER ?>">
+		</a>
+		</div>
+		<?php
+		}
 	}

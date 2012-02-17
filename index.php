@@ -22,6 +22,8 @@ include_once(BASE_DIR."controllers/Index.controller.php");
 include_once(BASE_DIR."controllers/Search.controller.php");
 include_once(BASE_DIR."views/head.inc.php");
 ?>
+
 	<center><img src="<?php echo LOGO_LOCATION ?>" /></center>
 	<center><h1>Space Concordia PDF Search <?php echo REV;?></h1></center>
+
 <?php include_once(BASE_DIR."views/footer.inc.php");

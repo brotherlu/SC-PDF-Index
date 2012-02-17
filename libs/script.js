@@ -16,8 +16,16 @@
  * 
  */
 
-function refillTextSearch(){
+function showResults(that){
 	
-	
-	
+	if (that.nextElementSibling.style.display==''){
+		that.nextElementSibling.style.display='block';
+		that.childNodes[0].childNodes[0].innerHTML="[-]";
+		that.childNodes[0].childNodes[4].innerHTML="[-]";
+	}
+	else{
+		that.nextElementSibling.style.display='';
+		that.childNodes[0].childNodes[0].innerHTML="[+]";
+		that.childNodes[0].childNodes[4].innerHTML="[+]";
+	}
 	}

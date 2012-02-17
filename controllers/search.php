@@ -25,11 +25,13 @@ include_once(BASE_DIR."controllers/Search.controller.php");
 
 include_once(BASE_DIR."views/head.inc.php");
 
+SearchController::RenderHomeButton();
+
 if(!$_GET['search']['term']==""){
 
 	$finder=new SearchModel();
 	
-	echo '<h1>For the search Query: '.$_GET['search']['term'].'</h1>';
+	echo '<h2>Query: '.$_GET['search']['term'].'</h2>';
 	
 	$searchStringArray = $finder->ProcessSearchString($_GET['search']['term']);
 	
@@ -40,11 +42,14 @@ if(!$_GET['search']['term']==""){
 	
 		$blackListedResult = $finder->CheckBlacklist($a);
 	
-		if ($blackListedResult)
-			echo $a." is blacklisted<br/>";
-	
+		if ($blackListedResult) {
+			echo '<div class=wordDiv>';
+			echo '<p class="wordTitle">Word: \''.$a.'\' is blacklisted!</p>';
+			echo '</div>';
+		}
+		
 		if (!$blackListedResult){
-
+			echo '<div class=wordDiv>';
 			echo '<p class="wordTitle">Word: '.$a.'</p>';
 			
 			$FindResult = $finder->Find($a);
@@ -53,17 +58,21 @@ if(!$_GET['search']['term']==""){
 				
 				foreach (array_keys($FindResult) as $b){
 					
+					$wordHits=count($FindResult[$b]);
+					
 					$doc = $finder->GetDocInfo($b);
-					
-					echo "<h3>For this Doc $doc[doc_filename]</h3>";
-					
-					echo "<h3>The results are</h3>";
-					
+					echo '<div class=docDiv>';
+					echo "<div class=docDivFilename onclick=showResults(this)><p class=docPFilename><span class=bold>[+]</span> $doc[doc_filename] (<span class=bold>$wordHits</span> Hits) <span class=bold>[+]</span></p></div>";
+					echo '<div class=resultDiv>';
+						
 					foreach ($FindResult[$b] as $c){
 						echo 'Page: '.$c['page_no'].'<br/>';
 					}
+					echo '</div>';
+					echo '</div>';
 				}
-		} else { echo "<p>Not Found</p>"; }
+			echo '</div>';
+			} else { echo "<h2>No Instances Found</h2>"; }
 		
 		}
 	}	
