@@ -32,15 +32,10 @@ function reindex(){
 
 	// Open the Folder
 
-	echo '<pre>';
-
-	$FileListing = IndexController::GetPDFFilelist($GLOBALS['PDFSOURCES']);
+	$fileList = IndexController::GetPDFFilelist($GLOBALS['PDFSOURCES']);
 	
-	print_r($FileListing);
-	
-	echo '</pre>';
 	//	Create the Index Object
-/*
+
 	$index=new IndexModel();
 			
 	$index->ClearAllTables();
@@ -48,72 +43,77 @@ function reindex(){
 	$index->GenerateInitialDatabaseTables();
 			
 	// Check if there are files to be indexed
-		
-	if($fileList && $fileList[2]){
 	
-	for($i=2;$i<count($fileList);$i++){ 
+	if(isset($fileList)){
+	
+	for($i=0;$i<count($fileList);$i++){ 
 		
 		// Capture XML data from PDF using poppler and cat, stdout did not work
 		// outputs to a /tmp/ file
 		
-		$fileList[$i] = preg_replace('/[\s]/','\ ',$fileList[$i]);
+		echo "<h1>$fileList[$i]</h1>";
 		
-		$content = shell_exec('pdftotext -bbox '.PDF_SOURCE.$fileList[$i].' /tmp/pdftotext.tmp');
-			
-		$content = shell_exec('cat /tmp/pdftotext.tmp');
-			
+		// BUG where if '-' is used stdout won't work
+		$content = shell_exec('pdftotext -bbox -q '.$fileList[$i].' /dev/stdout');
+		
+		// Some PDF files will generate ASCII code 24 elements that would crash the parser
+		// this is fixed by regex replacing them with a blank space
+		$content = preg_replace('/\/','',$content);
+		
 		$xml = simplexml_load_string($content);
-	
-		$totalPageCount = count($xml->body->doc->page);
-			
-		// Start Generating new Data
-			
-		$docId=$index->AddDocList($fileList[$i],$totalPageCount);
 		
-		if(isset($docId)){
+		if ($xml!=false){
 		
-			// Create Word Table for word parsing
+			$totalPageCount = count($xml->body->doc->page);
+				
+			// Start Generating new Data
+				
+			$docId=$index->AddDocList($fileList[$i],$totalPageCount);
 			
-			if($index->CreateWordTable($docId)){$index->CreateWordTable($docId);} else {die("Could not create Word table!");}
-		
-			for($j = 0;$j < $totalPageCount;$j++){
+			if(isset($docId)){
+			
+				// Create Word Table for word parsing
 				
-				// Get Page Information
-				
-				$page_width = $xml->body->doc->page[$j]->attributes()->width;
-				$page_height = $xml->body->doc->page[$j]->attributes()->height;
-				
-				$index->AddPageList($docId,$j+1,$page_width,$page_height);
-				
-				// Word Time
-				
-				$wordCount = count($xml->body->doc->page[$j]->word);
-				
-				for ($k = 0;$k < $wordCount;$k++){
+				if($index->CreateWordTable($docId)){$index->CreateWordTable($docId);} else {die("Could not create Word table!");}
+			
+				for($j = 0;$j < $totalPageCount;$j++){
 					
-					$word = $xml->body->doc->page[$j]->word[$k];
+					// Get Page Information
 					
-					/* preg match pattern * /
-					$pattern = '([a-zA-Z]+)';
+					$page_width = $xml->body->doc->page[$j]->attributes()->width;
+					$page_height = $xml->body->doc->page[$j]->attributes()->height;
 					
-					if(preg_match($pattern,$word)){
+					$index->AddPageList($docId,$j+1,$page_width,$page_height);
 					
-						$word = strtolower(CleanWordOfNonLettres($word));
+					// Word Time
 					
-						$xMin = $xml->body->doc->page[$j]->word[$k]->attributes()->xMin;
-						$xMax = $xml->body->doc->page[$j]->word[$k]->attributes()->xMax;
-						$yMin = $xml->body->doc->page[$j]->word[$k]->attributes()->yMin;
-						$yMax = $xml->body->doc->page[$j]->word[$k]->attributes()->yMax;
+					$wordCount = count($xml->body->doc->page[$j]->word);
 					
-						$index->AddWord($docId,$word,$j+1,$xMin,$xMax,$yMin,$yMax);
-					}
-				}	
-			}
-		} else {die("DOC_LIST Table Creation failed!");}
-		} 
+					for ($k = 0;$k < $wordCount;$k++){
+						
+						$word = $xml->body->doc->page[$j]->word[$k];
+						
+						// preg match pattern
+						$pattern = '([a-zA-Z]+)';
+						
+						if(preg_match($pattern,$word)){
+						
+							$word = strtolower(IndexController::CleanWordOfNonLettres($word));
+						
+							$xMin = $xml->body->doc->page[$j]->word[$k]->attributes()->xMin;
+							$xMax = $xml->body->doc->page[$j]->word[$k]->attributes()->xMax;
+							$yMin = $xml->body->doc->page[$j]->word[$k]->attributes()->yMin;
+							$yMax = $xml->body->doc->page[$j]->word[$k]->attributes()->yMax;
+						
+							$index->AddWord($docId,$word,$j+1,$xMin,$xMax,$yMin,$yMax);
+						}
+					}	
+				}
+			} else {die("DOC_LIST Table Creation failed!");}
+			} else {echo ("Could not convert $fileList[$i], check if malformed or readable");}
+		}
 	} else {die("There are no files to be indexed in this folder! Please Try Again!");}
 
-*/
 };
 
 reindex();

@@ -54,6 +54,7 @@ class IndexController extends UniverseController {
 							$finfo = finfo_open(FILEINFO_MIME_TYPE);
 							$fileMIMEtype = finfo_file($finfo,$fileLocation);
 							if($fileMIMEtype=='application/pdf')
+								$file = preg_replace('/\\s/','\ ',$file);
 								$fileList[] = $PDFSOURCES[$i].'/'.$file;
 						}
 					}

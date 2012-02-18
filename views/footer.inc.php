@@ -21,7 +21,7 @@
 -->
 </div> <!-- Main Div ending tag -->
 <div id="footer">
-&copy;<?php echo date('Y'); ?> PHPoppler <?php echo REV; ?> GPLv2
+&copy;<?php echo date('Y'); ?> <b>PHPoppler</b> <?php echo REV; ?> <i>GPLv2</i>
 </div>
 
 </div><!-- Wrapper End Tag -->
