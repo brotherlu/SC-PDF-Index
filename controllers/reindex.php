@@ -21,19 +21,10 @@
 // Time in seconds for indexing documents
 // Change this if the database does not seem complete
 
-include_once(BASE_DIR."models/Index.model.php");
+include_once('../CFG.ini');
+include_once(BASE_DIR."controllers/Index.controller.php");
 
 ini_set('max_execution_time',300);
-
-/* Remove uneeded characters */
-function CleanWordOfNonLettres($word){
-	
-	$charactersToDrop = array('(',')','/','\\',':',',','.','0','1','2','3','4','5','6','7','8','9');
-	$word = str_replace($charactersToDrop,' ', $word);
-	$word = trim($word);
-	return $word;
-	
-	}
 
 // Primary reindex function
 
@@ -41,17 +32,15 @@ function reindex(){
 
 	// Open the Folder
 
-	if(is_dir(PDF_SOURCE)){
-		if($dh=opendir(PDF_SOURCE)){
-			while (($file = readdir($dh)) !== false) {
-				$fileList[] = $file;
-			}
-			closedir($dh);
-			} else {die("Can not Open Directory, maybe Permissions");};
-		} else {die("The Folder does not Exist");}
-	
-	//	Create the Index Object
+	echo '<pre>';
 
+	$FileListing = IndexController::GetPDFFilelist($GLOBALS['PDFSOURCES']);
+	
+	print_r($FileListing);
+	
+	echo '</pre>';
+	//	Create the Index Object
+/*
 	$index=new IndexModel();
 			
 	$index->ClearAllTables();
@@ -104,7 +93,7 @@ function reindex(){
 					
 					$word = $xml->body->doc->page[$j]->word[$k];
 					
-					/* preg match pattern */
+					/* preg match pattern * /
 					$pattern = '([a-zA-Z]+)';
 					
 					if(preg_match($pattern,$word)){
@@ -124,7 +113,7 @@ function reindex(){
 		} 
 	} else {die("There are no files to be indexed in this folder! Please Try Again!");}
 
-
+*/
 };
 
 reindex();
