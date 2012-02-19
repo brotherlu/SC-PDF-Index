@@ -51,17 +51,16 @@ function reindex(){
 
 	for($i=0;$i<count($fileList);$i++){ 
 		
-		// Capture XML data from PDF using poppler and cat, stdout did not work
-		// outputs to a /tmp/ file
-		
-		echo "<h1>$fileList[$i]</h1>";
-		$progress=($progress+$progressBarIncrement);
-		echo 'Progress: '.(int)$progress;
+		// Capture XML data from PDF using poppler 
+		echo "<h1>$fileList[$i]</h1>"; // for testing
+		// $progress=($progress+$progressBarIncrement);
+		// echo 'Progress: '.(int)$progress;
 		// BUG where if '-' is used stdout won't work
 		$content = shell_exec('pdftotext -bbox -q '.$fileList[$i].' /dev/stdout');
 		
 		// Some PDF files will generate ASCII code 24 elements that would crash the parser
-		// this is fixed by regex replacing them with a blank space
+		// this is fixed by regex replacing them with a blank space which will be trashed later
+		// again by regex
 		$content = preg_replace('/\/','',$content);
 		
 		$xml = simplexml_load_string($content);

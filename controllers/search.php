@@ -25,6 +25,7 @@ include_once(BASE_DIR."controllers/Search.controller.php");
 
 include_once(BASE_DIR."views/head.inc.php");
 
+// Render the HomeButton
 SearchController::RenderHomeButton();
 
 if(!$_GET['search']['term']==""){
@@ -71,8 +72,6 @@ if(!$_GET['search']['term']==""){
 
 						$word_id = (int)$FindResult[$b][$i]['word_id'];
 
-						
-
 						// Outputing the search term with adjacent words;
 
 						echo '<p class="hit ';
@@ -88,7 +87,7 @@ if(!$_GET['search']['term']==""){
 
 						// Starting a for loop to get all ajacent words to develop the phrase to be outputed
 
-						for($j=-3;$j<4;$j++){
+						for($j=-4;$j<5;$j++){
 							$word_id_new = $word_id + $j;
 							$word_new = $finder->GetWordFromId($b,$word_id_new);
 							if($j==0)
