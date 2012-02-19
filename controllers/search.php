@@ -20,7 +20,6 @@
 
 include_once("../CFG.ini");
 
-include_once(BASE_DIR."models/Search.model.php");
 include_once(BASE_DIR."controllers/Search.controller.php");
 
 include_once(BASE_DIR."views/head.inc.php");
@@ -36,6 +35,29 @@ if(!$_GET['search']['term']==""){
 	
 	$searchStringArray = $finder->ProcessSearchString($_GET['search']['term']);
 	
+	/*
+
+	{ // Smart Search Implementation Here
+		
+		$numberOfWords = count($searchStringArray);
+
+		if(!blacklisted($searchStringArray[0])){
+			$PrelimSearch = $finder->Find($searchStringArray[0]);
+
+			foreach (array_key($PrelimSearch) as $key) {
+				
+
+			}
+		}
+
+		for($k=1;$k<$numberOfWords;$k++){
+			
+
+			
+		}
+
+	} // End Smart Search
+	*/
 	// get the word data and save the word ids
 	// check if any results from the second search results are next to the the first search results
 	
@@ -50,60 +72,10 @@ if(!$_GET['search']['term']==""){
 		}
 		
 		if (!$blackListedResult){
-			echo '<div class=wordDiv>';
-			echo '<p class="wordTitle">Word: '.$a.'</p>';
-			
+
 			$FindResult = $finder->Find($a);
-			
-			if ($FindResult){
 				
-				foreach (array_keys($FindResult) as $b){
-					
-					$wordHits=count($FindResult[$b]);
-					
-					$doc = $finder->GetDocInfo($b);
-					$docfile = preg_split('/\//', $doc['doc_filename']);
-					echo '<div class=docDiv>';
-					echo '<div class=docDivFilename onclick=showResults(this)><p class=docPFilename><span class=bold>[+]</span> '.end($docfile) .'
-						(<span class=bold>'.$wordHits.'</span> Hits) <span class=bold>[+]</span></p></div>';
-					echo '<div class=resultDiv>';
-					
-					for ($i=0;$i<count($FindResult[$b]);$i++){
-
-						$word_id = (int)$FindResult[$b][$i]['word_id'];
-
-						// Outputing the search term with adjacent words;
-
-						echo '<p class="hit ';
-						echo ($i%2==0) ? 'hiteven' : 'hitodd';
-						echo '"><b>Page: '.$FindResult[$b][$i]['page_no'].'</b>';
-
-						echo '<span class=wordString>... ';
-						
-						// Unsetting the $wordString if it was used previously
-
-						if(isset($wordString))
-							unset($wordString);
-
-						// Starting a for loop to get all ajacent words to develop the phrase to be outputed
-
-						for($j=-4;$j<5;$j++){
-							$word_id_new = $word_id + $j;
-							$word_new = $finder->GetWordFromId($b,$word_id_new);
-							if($j==0)
-								echo ' <b>'.$word_new['word'].'</b> ';
-							else
-								echo ' '.$word_new['word'].' ';
-						}
-							
-						echo ' ...</span></p>';
-					}
-					echo '</div>';
-					echo '</div>';
-				}
-			echo '</div>';
-			} else { echo "<h2>No Instances Found</h2>"; }
-		
+			SearchController::RenderResults($a,$FindResult);
 		}
 	}	
 	

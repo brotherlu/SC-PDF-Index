@@ -50,4 +50,63 @@ class SearchController extends UniverseController {
 		</div>
 		<?php
 		}
+	
+	public function RenderResults($word,$FindResult){
+		
+		$finder = new SearchModel();
+
+		echo '<div class=wordDiv>';
+		echo '<p class="wordTitle">Word: '.$word.'</p>';
+		
+		if($FindResult){
+			foreach (array_keys($FindResult) as $b){
+				
+				$wordHits=count($FindResult[$b]);
+				
+				$doc = $finder->GetDocInfo($b);
+				$docfile = preg_split('/\//', $doc['doc_filename']);
+				echo '<div class=docDiv>';
+				echo '<div class=docDivFilename onclick=showResults(this)><p class=docPFilename><span class=bold>[+]</span> '.end($docfile) .'
+					(<span class=bold>'.$wordHits.'</span> Hits) <span class=bold>[+]</span></p></div>';
+				echo '<div class=resultDiv>';
+				
+				for ($i=0;$i<count($FindResult[$b]);$i++){
+
+					$word_id = (int)$FindResult[$b][$i]['word_id'];
+
+					// Outputing the search term with adjacent words;
+
+					echo '<p class="hit ';
+					echo ($i%2==0) ? 'hiteven' : 'hitodd';
+					echo '"><b>Page: '.$FindResult[$b][$i]['page_no'].'</b>';
+
+					echo '<span class=wordString>... ';
+					
+					// Unsetting the $wordString if it was used previously
+
+					if(isset($wordString))
+						unset($wordString);
+
+					// Starting a for loop to get all ajacent words to develop the phrase to be outputed
+
+					for($j=-4;$j<5;$j++){
+						$word_id_new = $word_id + $j;
+						$word_new = $finder->GetWordFromId($b,$word_id_new);
+						if($j==0)
+							echo ' <b>'.$word_new['word'].'</b> ';
+						else
+							echo ' '.$word_new['word'].' ';
+					}
+						
+					echo ' ...</span></p>';
+				}
+				echo '</div>';
+				echo '</div>';
+			}
+		} else { echo "<h2>No Instances Found</h2>"; }
+		echo '</div>';
+	} // End RenderResult Method
+
+
+
 	}
