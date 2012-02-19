@@ -21,10 +21,10 @@
 // Time in seconds for indexing documents
 // Change this if the database does not seem complete
 
+ini_set('max_execution_time',300);
+
 include_once('../CFG.ini');
 include_once(BASE_DIR."controllers/Index.controller.php");
-
-ini_set('max_execution_time',300);
 
 // Primary reindex function
 
@@ -46,13 +46,17 @@ function reindex(){
 	
 	if(isset($fileList)){
 	
+	$progress=0;
+	$progressBarIncrement = 100/count($fileList);
+
 	for($i=0;$i<count($fileList);$i++){ 
 		
 		// Capture XML data from PDF using poppler and cat, stdout did not work
 		// outputs to a /tmp/ file
 		
 		echo "<h1>$fileList[$i]</h1>";
-		
+		$progress=($progress+$progressBarIncrement);
+		echo 'Progress: '.(int)$progress;
 		// BUG where if '-' is used stdout won't work
 		$content = shell_exec('pdftotext -bbox -q '.$fileList[$i].' /dev/stdout');
 		

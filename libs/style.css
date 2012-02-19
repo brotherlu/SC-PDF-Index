@@ -138,3 +138,7 @@ body{
 .bold {
 	font-weight:bold;
 }
+
+.wordString {
+	margin-left:10%;
+}

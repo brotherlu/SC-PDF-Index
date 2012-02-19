@@ -128,10 +128,12 @@ class SearchModel extends UniverseModel{
 		}
 	
 	// Get word row using the word_id
-	private function GetWordFromId($tableName,$wordId){
+	public function GetWordFromId($tableName,$wordId){
 		
 		$connectDB = parent::connectDB();
 		
+		$tableName = 'DOC_'.$tableName;
+
 		$wordSearchQuery = $connectDB->query("SELECT * FROM $tableName WHERE word_id ='$wordId'");
 		
 		if ($wordSearchQuery){
